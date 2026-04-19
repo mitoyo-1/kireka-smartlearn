@@ -108,42 +108,11 @@ function setupMobileMenu() {
 
 function setupScrollEffects() {
   const topNav = document.querySelector('.top-nav');
-  let lastScrollY = window.scrollY;
-  let ticking = false;
 
-  function updateNav() {
-    const currentScrollY = window.scrollY;
-    const scrollThreshold = 100;
-
-    // Always add sticky class when scrolled past threshold
-    if (currentScrollY > scrollThreshold) {
-      topNav.classList.add('sticky', 'scrolled');
-    } else {
-      topNav.classList.remove('sticky', 'scrolled');
-    }
-
-    // Add subtle animation based on scroll direction
-    if (currentScrollY > lastScrollY && currentScrollY > scrollThreshold) {
-      // Scrolling down - make header more compact
-      topNav.style.transform = 'translateY(0)';
-    } else if (currentScrollY < lastScrollY) {
-      // Scrolling up - keep header visible
-      topNav.style.transform = 'translateY(0)';
-    }
-
-    lastScrollY = currentScrollY;
-    ticking = false;
+  // Make header always sticky from the start
+  if (topNav) {
+    topNav.classList.add('sticky', 'scrolled');
   }
-
-  function requestTick() {
-    if (!ticking) {
-      requestAnimationFrame(updateNav);
-      ticking = true;
-    }
-  }
-
-  window.addEventListener('scroll', requestTick, { passive: true });
-  updateNav(); // Initial check
 
   // Smooth scrolling for navigation links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
