@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student | Kireka SmartLearn</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script defer src="js/app.js"></script>
+</head>
+<body class="dashboard-page">
+  <header class="dashboard-header">
+    <div class="brand"><img src="image/kireka-logo.png" alt="Kireka High School Logo"> Kireka SmartLearn</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="admin.html">Admin</a>
+      <a href="parent.html">Parent</a>
+      <a href="gallery.html">Gallery</a>
+    </nav>
+    <div class="header-actions">
+      <button id="studentHelp" class="help-pill">Help</button>
+    </div>
+  </header>
+
+  <main class="dashboard-shell">
+    <section class="login-card" id="studentAccess">
+      <h2>Student Login</h2>
+      <p>Use your Student ID and passcode.</p>
+      <form id="studentLoginForm">
+        <label>Student ID
+          <input type="text" id="studentLoginId" placeholder="KSL-001" required />
+        </label>
+        <label>Passcode
+          <input type="password" id="studentLoginPass" placeholder="1234" required />
+        </label>
+        <button type="submit">Login</button>
+      </form>
+    </section>
+
+    <section class="dashboard hidden" id="studentPanel">
+      <div class="dashboard-intro">
+        <h1>Student Dashboard</h1>
+        <p>See your report, notes, and school announcements with simple touches.</p>
+        <button id="studentLogout" class="secondary small">Log out</button>
+      </div>
+      <div class="panel-grid">
+        <div class="panel-card">
+          <h2>Your Report Card</h2>
+          <div id="studentReport" class="item-list"></div>
+        </div>
+        <div class="panel-card">
+          <h2>Class Notes</h2>
+          <div id="studentNotes" class="item-list"></div>
+        </div>
+      </div>
+      <div class="panel-card">
+        <h2>Announcements</h2>
+        <div id="studentAnnouncements" class="item-list"></div>
+      </div>
+      <div class="panel-grid">
+        <div class="panel-card">
+          <h2>School Calendar</h2>
+          <div id="studentCalendar" class="item-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

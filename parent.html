@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parent | Kireka SmartLearn</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script defer src="js/app.js"></script>
+</head>
+<body class="dashboard-page">
+  <header class="dashboard-header">
+    <div class="brand"><img src="image/kireka-logo.png" alt="Kireka High School Logo"> Kireka SmartLearn</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="admin.html">Admin</a>
+      <a href="student.html">Student</a>
+      <a href="gallery.html">Gallery</a>
+    </nav>
+    <div class="header-actions">
+      <button id="parentHelp" class="help-pill">Help</button>
+    </div>
+  </header>
+
+  <main class="dashboard-shell">
+    <section class="login-card" id="parentAccess">
+      <h2>Parent Access</h2>
+      <div class="auth-switch">
+        <button id="showParentRegister" class="active">Register</button>
+        <button id="showParentLogin">Login</button>
+      </div>
+      <form id="parentRegisterForm" class="auth-form">
+        <label>Name
+          <input type="text" id="parentName" placeholder="Mother Jane" required />
+        </label>
+        <label>Email
+          <input type="email" id="parentEmail" placeholder="you@example.com" required />
+        </label>
+        <label>Password
+          <input type="password" id="parentPass" placeholder="••••••" required />
+        </label>
+        <button type="submit">Create Account</button>
+      </form>
+      <form id="parentLoginForm" class="auth-form hidden">
+        <label>Email
+          <input type="email" id="parentLoginEmail" placeholder="you@example.com" required />
+        </label>
+        <label>Password
+          <input type="password" id="parentLoginPass" placeholder="••••••" required />
+        </label>
+        <button type="submit">Login</button>
+      </form>
+      <p class="small-note">New parents can register and then login securely.</p>
+    </section>
+
+    <section class="dashboard hidden" id="parentPanel">
+      <div class="dashboard-intro">
+        <h1>Parent Dashboard</h1>
+        <p>View your child’s results, messages, notes, and school updates.</p>
+        <button id="parentLogout" class="secondary small">Log out</button>
+      </div>
+      <div class="panel-grid">
+        <div class="panel-card">
+          <h2>Your Child’s Reports</h2>
+          <div id="parentReport" class="item-list"></div>
+        </div>
+        <div class="panel-card">
+          <h2>Teacher Comments</h2>
+          <div id="parentComments" class="item-list"></div>
+        </div>
+      </div>
+      <div class="panel-card">
+        <h2>Register a Student</h2>
+        <form id="parentAddStudentForm">
+          <label>Student Name
+            <input type="text" id="parentStudentName" required />
+          </label>
+          <label>Class
+            <select id="parentStudentClass">
+              <option value="S1">S1</option>
+              <option value="S2">S2</option>
+              <option value="S3">S3</option>
+              <option value="S4">S4</option>
+            </select>
+          </label>
+          <button type="submit">Register Student</button>
+        </form>
+      </div>
+      <div class="panel-card">
+        <h2>Send Message</h2>
+        <form id="parentMessageForm">
+          <label>Message
+            <textarea id="parentMessageText" rows="3" placeholder="Ask admin a question." required></textarea>
+          </label>
+          <button type="submit">Send</button>
+        </form>
+      </div>
+      <div class="panel-grid">
+        <div class="panel-card">
+          <h2>Notifications</h2>
+          <div id="parentNotifications" class="item-list"></div>
+        </div>
+        <div class="panel-card">
+          <h2>Your Students</h2>
+          <div id="parentStudents" class="item-list"></div>
+        </div>
+      </div>
+      <div class="panel-grid">
+        <div class="panel-card">
+          <h2>Your Messages</h2>
+          <div id="parentMessageList" class="item-list"></div>
+        </div>
+        <div class="panel-card">
+          <h2>School Calendar</h2>
+          <div id="parentCalendar" class="item-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

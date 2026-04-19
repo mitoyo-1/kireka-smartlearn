@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | Kireka SmartLearn</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script defer src="js/gallery.js"></script>
+</head>
+<body class="gallery-page">
+  <header class="dashboard-header gallery-header">
+    <div class="header-brand">
+      <a href="index.html" class="brand"><img src="image/kireka-logo.png" alt="Kireka High School Logo"> Kireka SmartLearn</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">Gallery</span>
+    </div>
+    <nav class="gallery-nav">
+      <a href="index.html">Home</a>
+      <a href="gallery.html" class="active">Gallery</a>
+      <a href="admin.html">Admin</a>
+      <a href="parent.html">Parent</a>
+      <a href="student.html">Student</a>
+    </nav>
+    <div class="header-info">
+      <span class="gallery-count">7 photos</span>
+      <span class="gallery-count">3 videos</span>
+    </div>
+  </header>
+
+  <main class="dashboard-shell">
+    <section class="panel-card gallery-hero">
+      <div class="dashboard-intro">
+        <div>
+          <h1>School Gallery</h1>
+          <p>Browse photos from school activities, classrooms, and student life at Kireka SmartLearn.</p>
+          <div class="hero-actions">
+            <a class="button secondary" href="index.html">Back to Home</a>
+            <a class="button" href="gallery.html">View full collection</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="panel-card gallery-filters" aria-label="Gallery filter options">
+      <button class="filter-pill active" type="button" data-filter="all">All</button>
+      <button class="filter-pill" type="button" data-filter="activities">Activities</button>
+      <button class="filter-pill" type="button" data-filter="classroom">Classroom</button>
+      <button class="filter-pill" type="button" data-filter="campus">Campus</button>
+      <button class="filter-pill" type="button" data-filter="events">Events</button>
+      <button class="filter-pill" type="button" data-filter="videos">Videos</button>
+    </section>
+    <section class="panel-card gallery-grid">
+      <a href="image/image2slider.jpg" target="_blank" class="gallery-item" data-category="activities" aria-label="School activities photo">
+        <img src="image/image2slider.jpg" alt="School group photo" />
+        <div class="gallery-info">
+          <strong>School activities</strong>
+          <span>Classmates learning and playing together</span>
+        </div>
+      </a>
+      <a href="image/image3slider.jpg" target="_blank" class="gallery-item" data-category="classroom" aria-label="Students learning photo">
+        <img src="image/image3slider.jpg" alt="Students learning" />
+        <div class="gallery-info">
+          <strong>Learning together</strong>
+          <span>Interactive classroom lessons and teamwork</span>
+        </div>
+      </a>
+      <a href="image/image4slider.jpg" target="_blank" class="gallery-item" data-category="classroom" aria-label="Library photo">
+        <img src="image/image4slider.jpg" alt="Library" />
+        <div class="gallery-info">
+          <strong>Library support</strong>
+          <span>Quiet study spaces and reading corners</span>
+        </div>
+      </a>
+      <a href="image/image5slider.jpg" target="_blank" class="gallery-item" data-category="events" aria-label="School event photo">
+        <img src="image/image5slider.jpg" alt="School event" />
+        <div class="gallery-info">
+          <strong>Event day</strong>
+          <span>Celebrations, sports, and school ceremonies</span>
+        </div>
+      </a>
+      <a href="image/image6slider.jpg" target="_blank" class="gallery-item" data-category="classroom" aria-label="Classroom photo">
+        <img src="image/image6slider.jpg" alt="Classroom notes" />
+        <div class="gallery-info">
+          <strong>Classroom notes</strong>
+          <span>Study time with helpful learning materials</span>
+        </div>
+      </a>
+      <a href="image/3H6mJ.jpg" target="_blank" class="gallery-item" data-category="activities" aria-label="Outdoor learning photo">
+        <img src="image/3H6mJ.jpg" alt="Students outside" />
+        <div class="gallery-info">
+          <strong>Outdoor learning</strong>
+          <span>Fresh air lessons and active play</span>
+        </div>
+      </a>
+      <a href="image/vOAyt.jpg" target="_blank" class="gallery-item" data-category="campus" aria-label="School campus photo">
+        <img src="image/vOAyt.jpg" alt="School campus" />
+        <div class="gallery-info">
+          <strong>Campus view</strong>
+          <span>A welcoming campus with bright school grounds</span>
+        </div>
+      </a>
+    </section>
+    <section class="panel-card gallery-section">
+      <h2 class="section-title">📹 School Videos</h2>
+      <div class="videos-grid">
+        <div class="video-card" data-category="activities" aria-label="School sports day video">
+          <div class="video-thumbnail">
+            <iframe width="100%" height="180" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="School Sports Day" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+            <span class="video-badge">3:45</span>
+          </div>
+          <div class="video-info">
+            <strong>School Sports Day</strong>
+            <span>Student athletics and friendly competitions</span>
+          </div>
+        </div>
+        <div class="video-card" data-category="classroom" aria-label="Classroom learning video">
+          <div class="video-thumbnail">
+            <iframe width="100%" height="180" src="https://www.youtube.com/embed/jNQXAC9IVRw" title="Interactive Learning" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+            <span class="video-badge">5:12</span>
+          </div>
+          <div class="video-info">
+            <strong>Interactive Learning</strong>
+            <span>Modern classroom teaching methods in action</span>
+          </div>
+        </div>
+        <div class="video-card" data-category="events" aria-label="School assembly video">
+          <div class="video-thumbnail">
+            <iframe width="100%" height="180" src="https://www.youtube.com/embed/9bZkp7q19f0" title="Annual School Assembly" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+            <span class="video-badge">7:30</span>
+          </div>
+          <div class="video-info">
+            <strong>Annual School Assembly</strong>
+            <span>Student performances and achievements celebration</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="gallery-footer">
+    <div class="footer-grid">
+      <div class="footer-section">
+        <h3>📸 Gallery</h3>
+        <ul class="footer-links">
+          <li><a href="gallery.html?filter=all">View All Photos</a></li>
+          <li><a href="gallery.html?filter=activities">School Activities</a></li>
+          <li><a href="gallery.html?filter=classroom">Classroom</a></li>
+          <li><a href="gallery.html?filter=events">Events</a></li>
+          <li><a href="gallery.html?filter=videos">School Videos</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>🔗 Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="admin.html">Admin Portal</a></li>
+          <li><a href="parent.html">Parent Portal</a></li>
+          <li><a href="student.html">Student Portal</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>📞 Contact</h3>
+        <ul class="footer-links">
+          <li><a href="tel:+256700123456">+256 700 123 456</a></li>
+          <li><a href="mailto:info@kirekasmartlearn.ug">info@kirekasmartlearn.ug</a></li>
+          <li>Kireka, Kampala</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-note">
+      <p>© 2026 Kireka SmartLearn. All rights reserved.</p>
+      <p class="footer-tagline">Empowering education with simple, friendly tools.</p>
+    </div>
+  </footer>
+</body>
+</html>

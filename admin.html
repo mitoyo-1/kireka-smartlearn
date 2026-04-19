@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin | Kireka SmartLearn</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script defer src="js/app.js"></script>
+</head>
+<body class="dashboard-page">
+  <header class="dashboard-header">
+    <div class="brand"><img src="image/kireka-logo.png" alt="Kireka High School Logo"> Kireka SmartLearn</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="parent.html">Parent</a>
+      <a href="student.html">Student</a>
+      <a href="gallery.html">Gallery</a>
+    </nav>
+    <div class="header-actions">
+      <button id="adminHelp" class="help-pill">Help</button>
+    </div>
+  </header>
+
+  <main class="dashboard-shell">
+    <section class="login-card" id="adminLogin">
+      <h2>Admin Login</h2>
+      <p>Use your secure admin account.</p>
+      <form id="adminLoginForm">
+        <label>Username
+          <input type="text" id="adminUser" placeholder="admin" required />
+        </label>
+        <label>Password
+          <input type="password" id="adminPass" placeholder="••••••••" required />
+        </label>
+        <button type="submit">Login</button>
+      </form>
+      <p class="small-note">Default: admin / kireka123</p>
+    </section>
+
+    <section class="dashboard hidden" id="adminPanel">
+      <div class="dashboard-intro">
+        <h1>Admin Dashboard</h1>
+        <p>Manage students, results, notes, announcements, events, and messages.</p>
+        <button id="adminLogout" class="secondary small">Log out</button>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-button active" data-tab="students">Students</button>
+        <button class="tab-button" data-tab="academic">Academics</button>
+        <button class="tab-button" data-tab="announcements">Announcements</button>
+        <button class="tab-button" data-tab="calendar">Calendar</button>
+        <button class="tab-button" data-tab="messages">Messages</button>
+      </div>
+
+      <div class="tab-content active" id="studentsTab">
+        <div class="panel-card">
+          <h2>Register New Student</h2>
+          <form id="studentForm">
+            <label>Student Name
+              <input type="text" id="studentName" placeholder="Jane Doe" required />
+            </label>
+            <label>Class
+              <select id="studentClass" required>
+                <option value="S1">S1</option>
+                <option value="S2">S2</option>
+                <option value="S3">S3</option>
+                <option value="S4">S4</option>
+              </select>
+            </label>
+            <label>Student ID
+              <input type="text" id="studentId" placeholder="KSL-001" required />
+            </label>
+            <label>Passcode
+              <input type="text" id="studentPass" placeholder="1234" required />
+            </label>
+            <button type="submit">Save Student</button>
+          </form>
+        </div>
+        <div class="panel-card">
+          <h3>Current Students</h3>
+          <div id="studentList" class="item-list"></div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="academicTab">
+        <div class="panel-card">
+          <h2>Upload Report</h2>
+          <form id="reportForm">
+            <label>Student ID
+              <input type="text" id="reportStudentId" placeholder="KSL-001" required />
+            </label>
+            <label>Result Summary
+              <textarea id="reportText" rows="3" placeholder="Put term results or comments here." required></textarea>
+            </label>
+            <button type="submit">Save Report</button>
+          </form>
+        </div>
+        <div class="panel-card">
+          <h2>Upload Class Notes</h2>
+          <form id="notesForm">
+            <label>Title
+              <input type="text" id="noteTitle" placeholder="Biology Quiz" required />
+            </label>
+            <label>Class
+              <select id="noteClass" required>
+                <option value="S1">S1</option>
+                <option value="S2">S2</option>
+                <option value="S3">S3</option>
+                <option value="S4">S4</option>
+              </select>
+            </label>
+            <label>Subject
+              <input type="text" id="noteSubject" placeholder="Mathematics" required />
+            </label>
+            <label>PDF File
+              <input type="file" id="noteFile" accept="application/pdf" required />
+            </label>
+            <button type="submit">Upload Note</button>
+          </form>
+        </div>
+        <div class="panel-card">
+          <h3>Uploaded Notes</h3>
+          <div id="noteList" class="item-list"></div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="announcementsTab">
+        <div class="panel-card">
+          <h2>New Announcement</h2>
+          <form id="announceForm">
+            <label>Title
+              <input type="text" id="announceTitle" placeholder="Open Day" required />
+            </label>
+            <label>Message
+              <textarea id="announceText" rows="3" placeholder="Type the announcement here." required></textarea>
+            </label>
+            <button type="submit">Post Announcement</button>
+          </form>
+        </div>
+        <div class="panel-card">
+          <h3>Announcements</h3>
+          <div id="announcementList" class="item-list"></div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="calendarTab">
+        <div class="panel-card">
+          <h2>Add Event</h2>
+          <form id="eventForm">
+            <label>Event</label>
+            <input type="text" id="eventTitle" placeholder="Exam Week" required />
+            <label>Date</label>
+            <input type="date" id="eventDate" required />
+            <label>Description</label>
+            <textarea id="eventText" rows="2" placeholder="Short event description." required></textarea>
+            <button type="submit">Save Event</button>
+          </form>
+        </div>
+        <div class="panel-card">
+          <h3>School Calendar</h3>
+          <div id="eventList" class="item-list"></div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="messagesTab">
+        <div class="panel-card">
+          <h2>Parent Messages</h2>
+          <div id="messageList" class="item-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
