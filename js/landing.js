@@ -24,75 +24,18 @@ function setupVoiceWelcome() {
   });
 }
 
+function setupEnterTransition() {
+  // No transition needed when showing the homepage directly.
+}
+
 function addEntranceAnimation() {
-  const welcomeSection = document.querySelector('.welcome-section');
-  const features = document.querySelectorAll('.feature');
-  const actionButtons = document.querySelector('.action-buttons');
-  const quickInfo = document.querySelector('.quick-info');
-
-  if (!welcomeSection) return;
-
-  // Add initial hidden state
-  welcomeSection.style.opacity = '0';
-  welcomeSection.style.transform = 'translateY(30px)';
-
-  // Hide features initially
-  features.forEach((feature, index) => {
-    feature.style.opacity = '0';
-    feature.style.transform = 'translateY(20px)';
-  });
-
-  // Hide action buttons and quick info
-  if (actionButtons) {
-    actionButtons.style.opacity = '0';
-    actionButtons.style.transform = 'translateY(20px)';
-  }
-
-  if (quickInfo) {
-    quickInfo.style.opacity = '0';
-    quickInfo.style.transform = 'translateY(20px)';
-  }
-
-  // Animate welcome section in
-  setTimeout(() => {
-    welcomeSection.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-    welcomeSection.style.opacity = '1';
-    welcomeSection.style.transform = 'translateY(0)';
-  }, 300);
-
-  // Animate features with stagger
-  features.forEach((feature, index) => {
-    setTimeout(() => {
-      feature.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-      feature.style.opacity = '1';
-      feature.style.transform = 'translateY(0)';
-    }, 800 + (index * 150));
-  });
-
-  // Animate action buttons
-  if (actionButtons) {
-    setTimeout(() => {
-      actionButtons.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-      actionButtons.style.opacity = '1';
-      actionButtons.style.transform = 'translateY(0)';
-    }, 1400);
-  }
-
-  // Animate quick info
-  if (quickInfo) {
-    setTimeout(() => {
-      quickInfo.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-      quickInfo.style.opacity = '1';
-      quickInfo.style.transform = 'translateY(0)';
-    }, 1600);
-  }
+  // No entrance animation when showing the homepage directly.
 }
 
 // Initialize everything when the page loads
 document.addEventListener('DOMContentLoaded', () => {
   setupVoiceWelcome();
   addEntranceAnimation();
-  setupEnterTransition();
   setupFeatureInteractions();
   setupBackgroundAnimations();
 
@@ -149,31 +92,11 @@ function setupFeatureInteractions() {
 }
 
 function setupBackgroundAnimations() {
-  const shapes = document.querySelectorAll('.floating-shape');
-
-  shapes.forEach((shape, index) => {
-    // Random initial positions
-    shape.style.left = Math.random() * 100 + '%';
-    shape.style.top = Math.random() * 100 + '%';
-
-    // Animate shapes
-    animateShape(shape, index);
-  });
+  // No background floating animations for the simplified homepage.
 }
 
 function animateShape(shape, index) {
-  const duration = 15000 + (index * 2000); // Different durations for each shape
-  const delay = index * 1000;
-
-  setTimeout(() => {
-    shape.style.transition = `all ${duration}ms linear`;
-    shape.style.transform = `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px) rotate(${Math.random() * 360}deg)`;
-
-    // Reset animation after completion
-    setTimeout(() => {
-      animateShape(shape, index);
-    }, duration);
-  }, delay);
+  // No animation when background effects are disabled.
 }
 
 function enterSchoolPortal() {

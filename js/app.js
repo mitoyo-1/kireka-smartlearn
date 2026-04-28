@@ -145,63 +145,97 @@ function setupScrollEffects() {
     });
   }
 
-  // Hero slider functionality
+  // This file initializes the hero slider separately by calling setupHeroSlider().
+}
+
+function setupHeroSlider() {
   const slides = Array.from(document.querySelectorAll('.hero-slider .slide'));
-  const dots = Array.from(document.querySelectorAll('.slider-dot:not(.slider-arrow)'));
-  const prevBtn = document.querySelector('.slider-arrow.prev');
-  const nextBtn = document.querySelector('.slider-arrow.next');
   const heroSlider = document.querySelector('.hero-slider');
-  
-  if (!slides.length || !dots.length) return;
+
+  if (!slides.length) return;
+
+  const sliderFooter = heroSlider?.querySelector('.slider-footer');
+  const currentCounter = sliderFooter?.querySelector('.slider-counter .current');
+  const totalCounter = sliderFooter?.querySelector('.slider-counter .total');
+  const progressBar = sliderFooter?.querySelector('.progress-bar');
+  const sliderNav = heroSlider?.querySelector('.slider-nav');
+  let dotContainer = sliderNav?.querySelector('.slider-dots');
 
   let currentIndex = 0;
-  let sliderTimer;
+  let sliderTimer = null;
+  const slideDuration = 5000;
+
+  function updateIndicators() {
+    if (currentCounter) currentCounter.textContent = `${currentIndex + 1}`;
+    if (totalCounter) totalCounter.textContent = `${slides.length}`;
+    if (progressBar) progressBar.style.width = `${((currentIndex + 1) / slides.length) * 100}%`;
+    if (dotContainer) {
+      dotContainer.querySelectorAll('.slider-dot').forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentIndex);
+      });
+    }
+  }
 
   function showSlide(index) {
-    slides[currentIndex].classList.remove('active');
-    dots[currentIndex].classList.remove('active');
     currentIndex = (index + slides.length) % slides.length;
-    slides[currentIndex].classList.add('active');
-    dots[currentIndex].classList.add('active');
+    slides.forEach((slide, idx) => slide.classList.toggle('active', idx === currentIndex));
+    updateIndicators();
+  }
+
+  function createDots() {
+    if (!sliderNav) return;
+    if (!dotContainer) {
+      dotContainer = document.createElement('div');
+      dotContainer.className = 'slider-dots';
+      sliderNav.insertBefore(dotContainer, sliderNav.querySelector('.next'));
+    }
+    dotContainer.innerHTML = '';
+    slides.forEach((_, idx) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = `slider-dot${idx === 0 ? ' active' : ''}`;
+      dot.setAttribute('aria-label', `Go to slide ${idx + 1}`);
+      dot.addEventListener('click', () => {
+        stopSlider();
+        showSlide(idx);
+        startSlider();
+      });
+      dotContainer.appendChild(dot);
+    });
   }
 
   function startSlider() {
     stopSlider();
-    sliderTimer = setInterval(() => showSlide(currentIndex + 1), 5000);
+    showSlide(currentIndex);
+    sliderTimer = setInterval(() => showSlide(currentIndex + 1), slideDuration);
   }
 
   function stopSlider() {
-    if (sliderTimer) clearInterval(sliderTimer);
+    if (sliderTimer) {
+      clearInterval(sliderTimer);
+      sliderTimer = null;
+    }
   }
 
-  // Dot navigation
-  dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-      stopSlider();
-      showSlide(index);
-      startSlider();
-    });
-  });
+  if (sliderNav) {
+    const prevButton = sliderNav.querySelector('.slider-arrow.prev');
+    const nextButton = sliderNav.querySelector('.slider-arrow.next');
 
-  // Arrow navigation
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
+    prevButton?.addEventListener('click', () => {
       stopSlider();
       showSlide(currentIndex - 1);
       startSlider();
     });
-  }
 
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
+    nextButton?.addEventListener('click', () => {
       stopSlider();
       showSlide(currentIndex + 1);
       startSlider();
     });
   }
 
-  // Keyboard navigation
   document.addEventListener('keydown', (e) => {
+    if (e.target.closest('input, textarea, select, button')) return;
     if (e.key === 'ArrowLeft') {
       stopSlider();
       showSlide(currentIndex - 1);
@@ -213,12 +247,12 @@ function setupScrollEffects() {
     }
   });
 
-  // Pause on hover, resume on mouse out
   if (heroSlider) {
     heroSlider.addEventListener('mouseenter', stopSlider);
     heroSlider.addEventListener('mouseleave', startSlider);
   }
 
+  createDots();
   startSlider();
 }
 
@@ -513,20 +547,145 @@ function renderStudentPanel(student) {
   renderStudentCalendar();
 }
 
+function renderReportList() {
+  const students = readStorage(STORAGE.students);
+  const wrapper = document.getElementById('reportList');
+  if (!wrapper) return;
+  wrapper.innerHTML = '';
+
+  const studentsWithReports = students.filter(student => student.report);
+
+  if (!studentsWithReports.length) {
+    wrapper.appendChild(buildItem('No reports yet', 'Upload or create reports for students.'));
+    return;
+  }
+
+  studentsWithReports.forEach((student) => {
+    const report = student.report;
+    const reportType = report.type === 'table' ? 'Table Report' : 'Uploaded File';
+    const details = [
+      `ID: ${student.id}`,
+      `Class: ${student.classYear}`,
+      `Type: ${reportType}`,
+    ];
+
+    if (report.type === 'table') {
+      details.push(`Term: ${report.term}`);
+      details.push(`Subjects: ${report.subjects.length}`);
+    }
+    if (report.fileName) {
+      details.push(`File: ${report.fileName}`);
+    }
+
+    const summaryHtml = report.summary ? report.summary.replace(/\n/g, '<br />') : 'No summary available.';
+    const subjectsHtml = report.type === 'table' && Array.isArray(report.subjects)
+      ? `<div class="report-subjects">
+          <h4>Subjects</h4>
+          <div class="report-subject-grid">
+            ${report.subjects.map((subject) => `
+              <div class="report-subject-card">
+                <strong>${subject.subject}</strong>
+                <span>${subject.score}% • ${subject.grade}</span>
+                ${subject.comment ? `<p>${subject.comment}</p>` : ''}
+              </div>
+            `).join('')}
+          </div>
+        </div>`
+      : '';
+
+    const card = document.createElement('div');
+    card.className = 'item-card report-card';
+    card.innerHTML = `
+      <div class="report-card-header">
+        <div>
+          <strong>${student.name}</strong>
+          <div class="report-card-subtitle">${reportType} · ${student.classYear}</div>
+        </div>
+        <span class="report-badge">${reportType}</span>
+      </div>
+      <div class="report-meta-pill-group">
+        ${details.map((detail) => `<span class="report-meta-pill">${detail}</span>`).join('')}
+      </div>
+      <div class="report-summary">${summaryHtml}</div>
+      ${subjectsHtml}
+      ${report.fileData ? `<a class="report-download" href="${report.fileData}" download="${report.fileName || 'report'}">Download report file</a>` : ''}
+    `;
+    wrapper.appendChild(card);
+  });
+}
+
+function resetTableSubjects() {
+  const tableContainer = document.querySelector('.grades-table');
+  if (!tableContainer) return;
+  
+  // Remove all subject rows except header
+  const existingRows = tableContainer.querySelectorAll('.table-row:not(.header)');
+  existingRows.forEach(row => row.remove());
+  
+  // Add default 5 subject rows
+  for (let i = 1; i <= 5; i++) {
+    addSubjectRow();
+  }
+}
+
+function addSubjectRow() {
+  const tableContainer = document.querySelector('.grades-table');
+  if (!tableContainer) return;
+  
+  const row = document.createElement('div');
+  row.className = 'table-row';
+  row.innerHTML = `
+    <input type="text" placeholder="Subject name" />
+    <input type="number" min="0" max="100" placeholder="85" />
+    <input type="text" placeholder="A" />
+    <input type="text" placeholder="Comments" />
+  `;
+  tableContainer.appendChild(row);
+}
+
+function setupReportOptions() {
+  const uploadBtn = document.getElementById('uploadReportBtn');
+  const createBtn = document.getElementById('createReportBtn');
+  const uploadSection = document.getElementById('uploadReportSection');
+  const createSection = document.getElementById('createReportSection');
+  
+  if (!uploadBtn || !createBtn || !uploadSection || !createSection) return;
+  
+  uploadBtn.addEventListener('click', () => {
+    uploadBtn.classList.add('active');
+    createBtn.classList.remove('active');
+    uploadSection.classList.remove('hidden');
+    createSection.classList.add('hidden');
+  });
+  
+  createBtn.addEventListener('click', () => {
+    createBtn.classList.add('active');
+    uploadBtn.classList.remove('active');
+    createSection.classList.remove('hidden');
+    uploadSection.classList.add('hidden');
+  });
+  
+  // Add subject button
+  const addSubjectBtn = document.getElementById('addSubjectBtn');
+  if (addSubjectBtn) {
+    addSubjectBtn.addEventListener('click', addSubjectRow);
+  }
+}
+
 function adminPage() {
   const loginForm = document.getElementById('adminLoginForm');
-  const adminPanel = document.getElementById('adminPanel');
   const loginCard = document.getElementById('adminLogin');
+  const adminPanel = document.getElementById('adminPanel');
   const logoutBtn = document.getElementById('adminLogout');
 
-  if (!loginForm) return;
-  setupHome();
-  updateAdminTabs();
-  renderStudentList();
+  if (!loginForm || !loginCard || !adminPanel || !logoutBtn) return;
+
   renderNotes();
   renderAnnouncements();
   renderEvents();
   renderMessages();
+  updateAdminTabs();
+  setupReportOptions();
 
   setupVoiceGuide(
     'adminHelp',
@@ -569,20 +728,96 @@ function adminPage() {
     event.target.reset();
   });
 
-  document.getElementById('reportForm')?.addEventListener('submit', (event) => {
+  document.getElementById('reportForm')?.addEventListener('submit', async (event) => {
     event.preventDefault();
     const studentId = document.getElementById('reportStudentId').value.trim();
     const text = document.getElementById('reportText').value.trim();
+    const fileInput = document.getElementById('reportFile');
+    
     const students = readStorage(STORAGE.students);
     const student = students.find((item) => item.id === studentId);
     if (!student) {
       alert('Student ID not found.');
       return;
     }
-    student.report = { summary: text, comments: 'Teacher comments are included above.' };
+
+    let reportData = { summary: text, comments: 'Teacher comments are included above.', type: 'upload' };
+
+    if (fileInput.files.length) {
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        reportData.fileData = reader.result;
+        reportData.fileName = file.name;
+        reportData.fileType = file.type;
+        student.report = reportData;
+        writeStorage(STORAGE.students, students);
+        renderStudentList();
+        renderReportList();
+        event.target.reset();
+      };
+      reader.readAsDataURL(file);
+    } else {
+      student.report = reportData;
+      writeStorage(STORAGE.students, students);
+      renderStudentList();
+      renderReportList();
+      event.target.reset();
+    }
+  });
+
+  document.getElementById('tableReportForm')?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const studentId = document.getElementById('tableReportStudentId').value.trim();
+    const term = document.getElementById('reportTerm').value;
+    const overallComments = document.getElementById('overallComments').value.trim();
+    
+    const students = readStorage(STORAGE.students);
+    const student = students.find((item) => item.id === studentId);
+    if (!student) {
+      alert('Student ID not found.');
+      return;
+    }
+
+    const subjects = [];
+    const subjectRows = document.querySelectorAll('.grades-table .table-row:not(.header)');
+    
+    subjectRows.forEach((row) => {
+      const inputs = row.querySelectorAll('input');
+      if (inputs.length >= 4) {
+        const subject = inputs[0].value.trim();
+        const score = inputs[1].value.trim();
+        const grade = inputs[2].value.trim();
+        const comment = inputs[3].value.trim();
+        
+        if (subject && score && grade) {
+          subjects.push({ subject, score: parseFloat(score), grade, comment });
+        }
+      }
+    });
+
+    if (subjects.length === 0) {
+      alert('Please add at least one subject with grades.');
+      return;
+    }
+
+    const reportData = {
+      type: 'table',
+      term: term,
+      subjects: subjects,
+      overallComments: overallComments,
+      summary: `Term: ${term}\n${subjects.map(s => `${s.subject}: ${s.score}% (${s.grade})`).join('\n')}`,
+      comments: overallComments
+    };
+
+    student.report = reportData;
     writeStorage(STORAGE.students, students);
     renderStudentList();
+    renderReportList();
     event.target.reset();
+    
+    // Reset table to default 5 subjects
+    resetTableSubjects();
   });
 
   document.getElementById('notesForm')?.addEventListener('submit', async (event) => {

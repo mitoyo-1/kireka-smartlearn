@@ -84,16 +84,90 @@
 
       <div class="tab-content" id="academicTab">
         <div class="panel-card">
-          <h2>Upload Report</h2>
-          <form id="reportForm">
-            <label>Student ID
-              <input type="text" id="reportStudentId" placeholder="KSL-001" required />
-            </label>
-            <label>Result Summary
-              <textarea id="reportText" rows="3" placeholder="Put term results or comments here." required></textarea>
-            </label>
-            <button type="submit">Save Report</button>
-          </form>
+          <h2>Manage Reports</h2>
+          <div class="report-options">
+            <button id="uploadReportBtn" class="option-btn active">Upload Report File</button>
+            <button id="createReportBtn" class="option-btn">Create Table Report</button>
+          </div>
+          
+          <div id="uploadReportSection" class="report-section">
+            <form id="reportForm">
+              <label>Student ID
+                <input type="text" id="reportStudentId" placeholder="KSL-001" required />
+              </label>
+              <label>Report File
+                <input type="file" id="reportFile" accept=".pdf,.doc,.docx,.jpg,.png" required />
+              </label>
+              <label>Summary/Comments
+                <textarea id="reportText" rows="3" placeholder="Optional summary or comments about the report." required></textarea>
+              </label>
+              <button type="submit">Upload Report</button>
+            </form>
+          </div>
+          
+          <div id="createReportSection" class="report-section hidden">
+            <form id="tableReportForm">
+              <label>Student ID
+                <input type="text" id="tableReportStudentId" placeholder="KSL-001" required />
+              </label>
+              <label>Term/Semester
+                <select id="reportTerm" required>
+                  <option value="Term 1">Term 1</option>
+                  <option value="Term 2">Term 2</option>
+                  <option value="Term 3">Term 3</option>
+                  <option value="Final">Final</option>
+                </select>
+              </label>
+              <div class="grades-table">
+                <h3>Subject Grades</h3>
+                <div class="table-row header">
+                  <div>Subject</div>
+                  <div>Score (%)</div>
+                  <div>Grade</div>
+                  <div>Comments</div>
+                </div>
+                <div class="table-row">
+                  <input type="text" id="subject1" placeholder="Mathematics" required />
+                  <input type="number" id="score1" min="0" max="100" placeholder="85" required />
+                  <input type="text" id="grade1" placeholder="A" required />
+                  <input type="text" id="comment1" placeholder="Excellent work" />
+                </div>
+                <div class="table-row">
+                  <input type="text" id="subject2" placeholder="English" required />
+                  <input type="number" id="score2" min="0" max="100" placeholder="78" required />
+                  <input type="text" id="grade2" placeholder="B+" required />
+                  <input type="text" id="comment2" placeholder="Good improvement" />
+                </div>
+                <div class="table-row">
+                  <input type="text" id="subject3" placeholder="Science" required />
+                  <input type="number" id="score3" min="0" max="100" placeholder="92" required />
+                  <input type="text" id="grade3" placeholder="A+" required />
+                  <input type="text" id="comment3" placeholder="Outstanding performance" />
+                </div>
+                <div class="table-row">
+                  <input type="text" id="subject4" placeholder="Social Studies" required />
+                  <input type="number" id="score4" min="0" max="100" placeholder="88" required />
+                  <input type="text" id="grade4" placeholder="A" required />
+                  <input type="text" id="comment4" placeholder="Very good" />
+                </div>
+                <div class="table-row">
+                  <input type="text" id="subject5" placeholder="Arts" required />
+                  <input type="number" id="score5" min="0" max="100" placeholder="76" required />
+                  <input type="text" id="grade5" placeholder="B" required />
+                  <input type="text" id="comment5" placeholder="Satisfactory" />
+                </div>
+                <button type="button" id="addSubjectBtn" class="secondary small">Add Another Subject</button>
+              </div>
+              <label>Overall Comments
+                <textarea id="overallComments" rows="3" placeholder="General teacher comments and recommendations." required></textarea>
+              </label>
+              <button type="submit">Save Table Report</button>
+            </form>
+          </div>
+        </div>
+        <div class="panel-card">
+          <h3>Current Reports</h3>
+          <div id="reportList" class="item-list"></div>
         </div>
         <div class="panel-card">
           <h2>Upload Class Notes</h2>
