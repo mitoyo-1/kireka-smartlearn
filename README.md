@@ -40,3 +40,4 @@ A modern school website prototype for Kireka SmartLearn with:
 - Uploaded PDF notes are stored locally in the browser as file data.
 - Voice guidance uses browser speech synthesis.
 - For a production setup, integrate with a real backend and secure authentication.
+# kireka-smartlearn
